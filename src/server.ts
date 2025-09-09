@@ -6,20 +6,39 @@ const app = express();
 
 // View engine setup
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '..', 'src', 'views'));
+// Handle Vercel's serverless environment
+const viewsPath = process.env['VERCEL'] 
+  ? path.join(__dirname, '..', 'dist', 'views')
+  : path.join(__dirname, 'views');
+app.set('views', viewsPath);
 
 // Static files
-app.use(express.static(path.join(__dirname, 'public')));
+const publicPath = process.env['VERCEL']
+  ? path.join(__dirname, '..', 'dist', 'public')
+  : path.join(__dirname, 'public');
+app.use(express.static(publicPath));
 
 // Health check route
 app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  res.json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    viewsPath,
+    publicPath,
+    __dirname,
+    vercel: process.env['VERCEL']
+  });
 });
 
 // Routes
 app.get('/', async (_req, res) => {
   try {
     console.log('Home page requested');
+    console.log('Views path:', viewsPath);
+    console.log('Public path:', publicPath);
+    console.log('__dirname:', __dirname);
+    console.log('VERCEL env:', process.env['VERCEL']);
+    
     const featuredEvents = await eventService.getFeaturedEvents();
     console.log('Featured events loaded:', featuredEvents.length);
     res.render('pages/home', {
