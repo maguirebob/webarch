@@ -58,13 +58,13 @@ app.get('/events/:id', async (req, res) => {
   try {
     const { id } = req.params;
     if (!id) {
-      res.status(400).render('pages/404', { title: 'Event Not Found' });
+      res.status(400).render('pages/404', { title: 'Page Not Found' });
       return;
     }
     const event = await eventService.getEventById(id);
 
     if (!event) {
-      res.status(404).render('pages/404', { title: 'Event Not Found' });
+      res.status(404).render('pages/404', { title: 'Page Not Found' });
       return;
     }
 
@@ -89,11 +89,13 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
   res.status(500).render('pages/500', { title: 'Server Error' });
 });
 
-// Start server
-const PORT = process.env['PORT'] || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Visit: http://localhost:${PORT}`);
-});
+// Start server only if not in test environment
+if (process.env['NODE_ENV'] !== 'test') {
+  const PORT = process.env['PORT'] || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Visit: http://localhost:${PORT}`);
+  });
+}
 
 export default app;

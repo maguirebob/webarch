@@ -38,7 +38,7 @@ describe('Server Integration Tests', () => {
         .get('/events/nonexistent')
         .expect(404);
 
-      expect(response.text).toContain('Event Not Found');
+      expect(response.text).toContain('Page Not Found');
     });
   });
 

@@ -1,5 +1,3 @@
-import { Request } from 'express';
-
 export interface User {
   id: string;
   email: string;
@@ -27,23 +25,6 @@ export interface Event {
   user?: User;
 }
 
-export interface SessionData {
-  userId?: string;
-  isAuthenticated?: boolean;
-}
-
-declare module 'express-session' {
-  interface SessionData {
-    userId?: string;
-    isAuthenticated?: boolean;
-  }
-}
-
-export interface AuthenticatedRequest extends Request {
-  user?: User;
-  session: Request['session'] & SessionData;
-}
-
 export interface PaginationOptions {
   page: number;
   limit: number;
@@ -60,7 +41,3 @@ export interface EventFilters {
   limit?: number;
 }
 
-export interface FlashMessage {
-  type: 'success' | 'error' | 'warning' | 'info';
-  message: string;
-}

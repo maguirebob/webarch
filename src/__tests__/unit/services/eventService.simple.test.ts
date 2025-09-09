@@ -1,20 +1,6 @@
 import { eventService } from '../../../services/eventService';
-
-// Mock Prisma client
-jest.mock('../../../lib/prisma', () => ({
-  prisma: {
-    event: {
-      findMany: jest.fn(),
-      findUnique: jest.fn(),
-      create: jest.fn(),
-      update: jest.fn(),
-      delete: jest.fn(),
-      count: jest.fn(),
-    },
-  },
-}));
-
 import { prisma } from '../../../lib/prisma';
+
 const mockPrisma = prisma as any;
 
 describe('EventService - Core Functionality', () => {

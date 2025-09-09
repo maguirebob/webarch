@@ -19,7 +19,7 @@
     "test:ci": "jest --ci --coverage --watchAll=false",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "ts-node prisma/seed.ts",
+    "db:seed": "ts-node --project tsconfig.seed.json prisma/seed.ts",
     "db:reset": "prisma migrate reset --force && npm run db:seed"
   },
   "keywords": [

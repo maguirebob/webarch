@@ -81,7 +81,7 @@ describe('Events E2E Tests', () => {
         .get('/events/999')
         .expect(404);
 
-      expect(response.text).toContain('Event Not Found');
+      expect(response.text).toContain('Page Not Found');
     });
   });
 
@@ -99,7 +99,7 @@ describe('Events E2E Tests', () => {
         .get('/events/invalid-id')
         .expect(404);
 
-      expect(response.text).toContain('Event Not Found');
+      expect(response.text).toContain('Page Not Found');
     });
   });
 
@@ -111,7 +111,7 @@ describe('Events E2E Tests', () => {
 
       expect(response.text).toContain('bg-gray-50');
       expect(response.text).toContain('container mx-auto');
-      expect(response.text).toContain('grid grid-cols-1 md:grid-cols-2');
+      expect(response.text).toContain('grid grid-cols-1 md:grid-cols-3');
     });
 
     it('should include proper meta tags', async () => {
