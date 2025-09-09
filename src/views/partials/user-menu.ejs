@@ -1,0 +1,32 @@
+<div class="relative">
+    <button class="flex items-center space-x-2 text-gray-600 hover:text-gray-900" onclick="toggleUserMenu()">
+        <span><%= user.firstName %> <%= user.lastName %></span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </button>
+    
+    <div id="userMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+        <a href="/users/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+        <a href="/users/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+        <form method="POST" action="/auth/logout" class="block">
+            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function toggleUserMenu() {
+    const menu = document.getElementById('userMenu');
+    menu.classList.toggle('hidden');
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', function(event) {
+    const menu = document.getElementById('userMenu');
+    const button = event.target.closest('button');
+    if (!menu.contains(event.target) && button !== event.target) {
+        menu.classList.add('hidden');
+    }
+});
+</script>
