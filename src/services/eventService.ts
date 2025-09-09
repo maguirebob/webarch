@@ -4,6 +4,39 @@ import { prisma } from '../lib/prisma';
 export const eventService = {
   async getFeaturedEvents(): Promise<Event[]> {
     try {
+      // Check if database is available
+      if (!process.env['DATABASE_URL']) {
+        console.log('No DATABASE_URL found, returning sample data');
+        return [
+          {
+            id: '1',
+            userId: 'demo',
+            title: 'Sample Event 1',
+            description: 'This is a sample event for demonstration',
+            eventDate: new Date('2024-06-15'),
+            eventTime: new Date('2024-06-15T09:00:00Z'),
+            location: 'Sample Location',
+            category: 'Technology',
+            isPublic: true,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+          {
+            id: '2',
+            userId: 'demo',
+            title: 'Sample Event 2',
+            description: 'Another sample event for demonstration',
+            eventDate: new Date('2024-07-20'),
+            eventTime: new Date('2024-07-20T18:00:00Z'),
+            location: 'Another Location',
+            category: 'Music',
+            isPublic: true,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        ];
+      }
+
       const events = await prisma.event.findMany({
         where: { isPublic: true },
         orderBy: { createdAt: 'desc' },

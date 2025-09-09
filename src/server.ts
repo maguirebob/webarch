@@ -11,16 +11,24 @@ app.set('views', path.join(__dirname, 'views'));
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Health check route
+app.get('/health', (_req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Routes
 app.get('/', async (_req, res) => {
   try {
+    console.log('Home page requested');
     const featuredEvents = await eventService.getFeaturedEvents();
+    console.log('Featured events loaded:', featuredEvents.length);
     res.render('pages/home', {
       title: 'Home',
       events: featuredEvents,
     });
   } catch (error) {
     console.error('Home page error:', error);
+    console.error('Error details:', error.message);
     res.render('pages/home', {
       title: 'Home',
       events: [],
