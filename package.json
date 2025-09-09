@@ -8,6 +8,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "railway:build": "npm run build",
+    "vercel-build": "npm run build",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --write src/**/*.ts",
@@ -20,7 +21,7 @@
     "test:ci": "jest --ci --coverage --watchAll=false",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "ts-node --project tsconfig.seed.json prisma/seed.ts",
+    "db:seed": "ts-node --transpile-only prisma/seed.ts",
     "db:reset": "prisma migrate reset --force && npm run db:seed"
   },
   "keywords": [

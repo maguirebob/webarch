@@ -34,7 +34,9 @@
   "exclude": [
     "node_modules",
     "dist",
+    "dist-seed",
     "**/*.test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "prisma/**/*"
   ]
 }
