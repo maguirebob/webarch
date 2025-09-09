@@ -89,8 +89,8 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
   res.status(500).render('pages/500', { title: 'Server Error' });
 });
 
-// Start server only if not in test environment
-if (process.env['NODE_ENV'] !== 'test') {
+// Start server only if not in test environment and not in Vercel
+if (process.env['NODE_ENV'] !== 'test' && !process.env['VERCEL']) {
   const PORT = process.env['PORT'] || 3000;
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
