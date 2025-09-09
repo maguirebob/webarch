@@ -28,7 +28,7 @@ app.get('/', async (_req, res) => {
     });
   } catch (error) {
     console.error('Home page error:', error);
-    console.error('Error details:', error.message);
+    console.error('Error details:', error instanceof Error ? error.message : String(error));
     res.render('pages/home', {
       title: 'Home',
       events: [],
@@ -53,6 +53,7 @@ app.get('/events', async (req, res) => {
     });
   } catch (error) {
     console.error('Events page error:', error);
+    console.error('Error details:', error instanceof Error ? error.message : String(error));
     res.render('pages/events', {
       title: 'Events',
       events: [],
@@ -82,6 +83,7 @@ app.get('/events/:id', async (req, res) => {
     });
   } catch (error) {
     console.error('Event detail error:', error);
+    console.error('Error details:', error instanceof Error ? error.message : String(error));
     res.status(500).render('pages/500', { title: 'Server Error' });
   }
 });
